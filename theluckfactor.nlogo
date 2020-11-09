@@ -1,11 +1,55 @@
 ; The Luck Factor
 ; Repo: https://github.com/tabaddor/The-Luck-Factor
 
-to setup
+turtles-own [capital talent]
 
+
+;; setup procedure
+to setup
+  clear-all
+  reset-ticks
+  create-turtles num-turtles
+
+  ;; TODO: Initialize to a power law distribution?
+  ask turtles [
+    setxy random-xcor random-ycor
+  ]
+
+  ;; initialize the patch environment to separate upper, middle, and lower classes
+  ask patches [
+    (ifelse pycor >= 6 [
+      set pcolor blue ;; upper class
+    ]
+    pycor >= -5 [
+      set pcolor red ;; middle class
+    ]  [
+      set pcolor yellow ;; lower class
+    ])
+  ]
+
+  ;; initialize agent talent
+  ask turtles [
+
+  ]
+
+  ;; initiailize agent capital
+  ask turtles [
+
+
+  ]
 end
 
+
+;; go procedure
 to go
+
+  tick
+end
+
+
+;; procedure for a luck event for each turtle
+to luck-event
+
 
 end
 @#$#@#$#@
@@ -35,6 +79,55 @@ GRAPHICS-WINDOW
 1
 ticks
 30.0
+
+BUTTON
+21
+39
+84
+72
+setup
+setup
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+SLIDER
+743
+29
+915
+62
+num-turtles
+num-turtles
+0
+300
+100.0
+10
+1
+NIL
+HORIZONTAL
+
+BUTTON
+119
+39
+182
+72
+go
+go
+NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
 
 @#$#@#$#@
 ## WHAT IS IT?
