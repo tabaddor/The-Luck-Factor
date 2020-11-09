@@ -1,7 +1,7 @@
 # The Luck Factor
 Exploring the role of luck in determining success or failure through Agent-Based Modeling.
 
-**Paper**: To be Updated
+**Report**: To be Updated
 
 ## Code
 1. Clone the repository:

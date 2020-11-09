@@ -13,17 +13,18 @@ to setup
   ;; TODO: Initialize to a power law distribution?
   ask turtles [
     setxy random-xcor random-ycor
+    set color black
   ]
 
   ;; initialize the patch environment to separate upper, middle, and lower classes
   ask patches [
     (ifelse pycor >= 6 [
-      set pcolor blue ;; upper class
+      set pcolor cyan ;; upper class
     ]
-    pycor >= -5 [
+    pycor >= -6 [
       set pcolor red ;; middle class
     ]  [
-      set pcolor yellow ;; lower class
+      set pcolor violet ;; lower class
     ])
   ]
 
@@ -34,7 +35,6 @@ to setup
 
   ;; initiailize agent capital
   ask turtles [
-
 
   ]
 end
@@ -120,6 +120,38 @@ BUTTON
 go
 go
 NIL
+1
+T
+OBSERVER
+NIL
+NIL
+NIL
+NIL
+1
+
+SLIDER
+740
+91
+912
+124
+luck-factor
+luck-factor
+0
+1
+0.5
+0.1
+1
+NIL
+HORIZONTAL
+
+BUTTON
+119
+91
+182
+124
+go
+go
+T
 1
 T
 OBSERVER
