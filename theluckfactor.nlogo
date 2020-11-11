@@ -10,10 +10,17 @@ to setup
   reset-ticks
   create-turtles num-turtles
 
-  ;; TODO: Initialize to a power law distribution?
+  ;; Initialization turtle locations
   ask turtles [
-    setxy random-xcor random-ycor
     set color black
+    ifelse random-float 1 < 0.99 [
+      ;; set location of lower and middle class
+      setxy random-xcor -16 + random 22
+
+    ] [
+      ;; set location of upper class (top 1%)
+      setxy random-xcor 6 + random 10
+    ]
   ]
 
   ;; initialize the patch environment to separate upper, middle, and lower classes
@@ -28,12 +35,12 @@ to setup
     ])
   ]
 
-  ;; initialize agent talent
+  ;; initialize agent talent along a gaussian distribution
   ask turtles [
 
   ]
 
-  ;; initiailize agent capital
+  ;; initiailize agent capital along a gaussian distribution
   ask turtles [
 
   ]
@@ -49,8 +56,18 @@ end
 
 ;; procedure for a luck event for each turtle
 to luck-event
+  ;; if it has been six months (1 tick = 1 month)
+  if ticks mod 6 = 0 [
+   ask turtles [
+     ;; no lucky event
 
 
+     ;; lucky event
+
+
+     ;; unlucky event
+    ]
+  ]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
@@ -106,7 +123,7 @@ num-turtles
 num-turtles
 0
 300
-100.0
+300.0
 10
 1
 NIL
