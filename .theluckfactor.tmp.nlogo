@@ -21,12 +21,7 @@ to setup
       if xcor > -16 [
        set capital 5
       ]
-      if xcor > -5 [
-       set capital 15
-      ]
-      if xcor > 0 [
-       set capital 45
-      ]
+      if xcor > -
 
     ] [
       ;; set location of upper class (top 1%)
