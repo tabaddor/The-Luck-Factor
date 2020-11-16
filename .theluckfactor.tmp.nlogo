@@ -19,20 +19,25 @@ to setup
 
       ;; then, initialize capital based on agent location
       if xcor > -16 [
-       set capital 5
+       set capital 5 + random-float 10
       ]
-      if xcor > -
+      if xcor > -5 [
+       set capital 20 + random-float 15
+      ]
+      if xcor > 0 [
+       set capital 40 + random-float 15
+      ]
 
     ] [
       ;; set location of upper class (top 1%)
       setxy random-xcor 6 + random 10
 
       ;; then, initialize capital based on agent location
-      if xcor > 6 [
-       set capital 75
+      if xcor >= 6 [
+       set capital 70 + random-float 15
       ]
       if xcor > 10 [
-       set capital 100
+       set capital 90 + random-float 10
       ]
     ]
   ]
@@ -133,7 +138,7 @@ num-turtles
 num-turtles
 0
 1000
-300.0
+500.0
 10
 1
 NIL

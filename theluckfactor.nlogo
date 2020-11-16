@@ -18,14 +18,14 @@ to setup
       setxy random-xcor -16 + random 22
 
       ;; then, initialize capital based on agent location
-      if xcor > -16 [
-       set capital 5
+      if ycor >= -16 [
+       set capital 5 + random-float 10
       ]
-      if xcor > -5 [
-       set capital 15
+      if ycor >= -5 [
+       set capital 20 + random-float 15
       ]
-      if xcor > 0 [
-       set capital 45
+      if ycor >= 0 [
+       set capital 40 + random-float 15
       ]
 
     ] [
@@ -33,11 +33,11 @@ to setup
       setxy random-xcor 6 + random 10
 
       ;; then, initialize capital based on agent location
-      if xcor > 6 [
-       set capital 75
+      if ycor >= 6 [
+       set capital 70 + random-float 15
       ]
-      if xcor > 10 [
-       set capital 100
+      if ycor >= 10 [
+       set capital 90 + random-float 10
       ]
     ]
   ]
@@ -138,7 +138,7 @@ num-turtles
 num-turtles
 0
 1000
-300.0
+500.0
 10
 1
 NIL
