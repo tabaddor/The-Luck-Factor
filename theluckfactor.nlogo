@@ -1,7 +1,9 @@
 ; The Luck Factor
 ; Repo: https://github.com/tabaddor/The-Luck-Factor
 
-turtles-own [capital talent]
+turtles-own [capital talent luck-events]
+breed [good-lucks good-luck] ;; good luck events
+breed [bad-lucks bad-luck] ;; bad luck events
 
 
 ;; setup procedure
@@ -13,6 +15,7 @@ to setup
   ;; Initialization turtle locations
   ask turtles [
     set color black
+    set shape "person"
     ifelse random-float 1 < 0.99 [
       ;; set location of lower and middle class
       setxy random-xcor -16 + random 22
@@ -42,6 +45,24 @@ to setup
     ]
   ]
 
+  ;; create the good luck events that randomly move around the environment
+  create-good-lucks num-good-luck
+  ask good-lucks [
+   setxy random-xcor random-ycor
+   set shape "circle"
+   set color green
+   set size 0.5
+  ]
+
+  ;; create the bad luck events that randomly move around the environment
+  create-bad-lucks num-bad-luck
+  ask bad-lucks [
+   setxy random-xcor random-ycor
+   set shape "circle"
+   set color red
+   set size 0.5
+  ]
+
   ;; initialize the patch environment to separate upper, middle, and lower classes
   ask patches [
     (ifelse pycor >= 6 [
@@ -56,7 +77,7 @@ to setup
 
   ;; initialize agent talent along a normal distribution
   ask turtles [
-    set talent random-normal 10.1 5.2 ;; mean 10.1, std 5.2
+    set talent random-normal 0.6 0.1 ;; mean 10.1, std 5.2
   ]
 
 end
@@ -65,9 +86,35 @@ end
 ;; go procedure
 to go
 
+  ;; stop model if it has been 40 years
+  if ticks = 180 [
+   stop
+  ]
+
+  ;; move good luck events randomly every tick
+  ask good-lucks [
+   right random 360
+   forward 1
+  ]
+
+  ;; move bad luck events randomly every tick
+  ask bad-lucks [
+   right random 360
+   forward 1
+  ]
+
+  count-luck-events
   tick
 end
 
+;; count the number of good and bad luck events encountered
+;; good luck = luck-events + 1
+;; bad luck = luck-events - 1
+to count-luck-events
+  ask turtles [
+
+  ]
+end
 
 ;; procedure for a luck event for each turtle
 to luck-event
@@ -192,6 +239,36 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+743
+155
+915
+188
+num-good-luck
+num-good-luck
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+743
+224
+915
+257
+num-bad-luck
+num-bad-luck
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
