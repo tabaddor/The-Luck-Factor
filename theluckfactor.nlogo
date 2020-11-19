@@ -103,7 +103,10 @@ to go
    forward 1
   ]
 
+  ;; call procedures
   count-luck-events
+  luck-event
+
   tick
 end
 
@@ -112,7 +115,15 @@ end
 ;; bad luck = luck-events - 1
 to count-luck-events
   ask turtles [
+    ;; if on good luck event
+    if any? good-lucks-on self [
+      set luck-events luck-events + 1
+    ]
 
+    ;; if on bad luck event
+    if any? bad-lucks-on self [
+     set luck-events luck-events - 1
+    ]
   ]
 end
 
@@ -128,6 +139,9 @@ to luck-event
 
 
      ;; unlucky event
+
+     ;; reset local variable for each turtle
+     set luck-events 0
     ]
   ]
 end
@@ -249,7 +263,7 @@ num-good-luck
 num-good-luck
 0
 100
-50.0
+25.0
 1
 1
 NIL
@@ -264,11 +278,29 @@ num-bad-luck
 num-bad-luck
 0
 100
-50.0
+25.0
 1
 1
 NIL
 HORIZONTAL
+
+PLOT
+5
+149
+205
+299
+Talent vs. Capital
+Talent
+Capital
+0.0
+1.0
+0.0
+100.0
+true
+true
+"" ""
+PENS
+"talent" 1.0 0 -16777216 true "" "plot talent "
 
 @#$#@#$#@
 ## WHAT IS IT?
