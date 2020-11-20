@@ -132,13 +132,28 @@ to luck-event
   ;; if it has been six months (1 tick = 1 month)
   if ticks mod 6 = 0 [
    ask turtles [
-     ;; no lucky event
-
+     ;; unlucky event
+      if luck-events < 0 [
+        let decrease (luck-factor * luck-events * random-float -1)
+        set capital capital - decrease
+        ;; move agent down accordingly
+        face patch 0 -16
+        ;; TODO bounds check
+        forward decrease * random-float 1
+      ]
 
      ;; lucky event
+      if luck-events > 0 [
+        let increase (luck-factor * luck-events * random-float 1)
+        set capital capital + increase
+        ;; move agent up accordingly
+        face patch 0 16
+        ;; TODO bounds check
+        forward increase * random-float 1
+      ]
 
 
-     ;; unlucky event
+     ;; else do nothing if no change
 
      ;; reset local variable for each turtle
      set luck-events 0
@@ -283,24 +298,6 @@ num-bad-luck
 1
 NIL
 HORIZONTAL
-
-PLOT
-5
-149
-205
-299
-Talent vs. Capital
-Talent
-Capital
-0.0
-1.0
-0.0
-100.0
-true
-true
-"" ""
-PENS
-"talent" 1.0 0 -16777216 true "" "plot talent "
 
 @#$#@#$#@
 ## WHAT IS IT?
