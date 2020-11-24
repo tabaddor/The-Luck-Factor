@@ -69,7 +69,7 @@ to setup
       set pcolor cyan ;; upper class
     ]
     pycor >= -6 [
-      set pcolor red ;; middle class
+      set pcolor yellow ;; middle class
     ]  [
       set pcolor violet ;; lower class
     ])
@@ -87,19 +87,19 @@ end
 to go
 
   ;; stop model if it has been 40 years
-  if ticks = 180 [
+  if ticks = 960 [
    stop
   ]
 
   ;; move good luck events randomly every tick
   ask good-lucks [
-   right random 360
+   set heading random 360
    forward 1
   ]
 
   ;; move bad luck events randomly every tick
   ask bad-lucks [
-   right random 360
+   set heading random 360
    forward 1
   ]
 
@@ -139,7 +139,12 @@ to luck-event
         ;; move agent down accordingly
         face patch 0 -16
         ;; TODO bounds check
-        forward decrease * random-float 1
+        let move_decrease decrease * random-float 1
+        ifelse ycor + move_decrease < -15 [
+         setxy xcor -15
+        ][
+        forward move_decrease
+        ]
       ]
 
      ;; lucky event
@@ -149,7 +154,12 @@ to luck-event
         ;; move agent up accordingly
         face patch 0 16
         ;; TODO bounds check
-        forward increase * random-float 1
+        let move_increase increase * random-float 1
+        ifelse ycor + move_increase > 15 [
+         setxy xcor 15
+        ][
+         forward move_increase
+        ]
       ]
 
 
@@ -278,7 +288,7 @@ num-good-luck
 num-good-luck
 0
 100
-25.0
+9.0
 1
 1
 NIL
@@ -293,7 +303,7 @@ num-bad-luck
 num-bad-luck
 0
 100
-25.0
+10.0
 1
 1
 NIL
