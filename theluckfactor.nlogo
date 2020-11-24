@@ -134,7 +134,7 @@ to luck-event
    ask turtles [
      ;; unlucky event
       if luck-events < 0 [
-        let decrease (luck-factor * luck-events * random-float -1)
+        let decrease (luck-factor * luck-events * random-float 1)
         set capital capital - decrease
         ;; move agent down accordingly
         face patch 0 -16
@@ -143,7 +143,7 @@ to luck-event
         ifelse ycor + move_decrease < -15 [
          setxy xcor -15
         ][
-        forward move_decrease
+        setxy xcor (ycor + move_decrease)
         ]
       ]
 
@@ -158,7 +158,7 @@ to luck-event
         ifelse ycor + move_increase > 15 [
          setxy xcor 15
         ][
-         forward move_increase
+         setxy xcor (ycor + move_increase)
         ]
       ]
 
