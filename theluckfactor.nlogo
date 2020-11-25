@@ -134,11 +134,11 @@ to luck-event
    ask turtles [
      ;; unlucky event
       if luck-events < 0 [
-        let decrease (luck-factor * luck-events * random-float 1)
+        let decrease (luck-factor * luck-events)
         set capital capital - decrease
         ;; move agent down accordingly
         face patch 0 -16
-        ;; TODO bounds check
+
         let move_decrease decrease * random-float 1
         ifelse ycor + move_decrease < -15 [
          setxy xcor -15
@@ -149,11 +149,14 @@ to luck-event
 
      ;; lucky event
       if luck-events > 0 [
-        let increase (luck-factor * luck-events * random-float 1)
+        let increase 0
+        if random-float 1 < talent [
+          set increase (luck-factor * luck-events)
+        ]
         set capital capital + increase
         ;; move agent up accordingly
         face patch 0 16
-        ;; TODO bounds check
+
         let move_increase increase * random-float 1
         ifelse ycor + move_increase > 15 [
          setxy xcor 15
@@ -256,7 +259,7 @@ luck-factor
 luck-factor
 0
 1
-0.5
+0.3
 0.1
 1
 NIL
