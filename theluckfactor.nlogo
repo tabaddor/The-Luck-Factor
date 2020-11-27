@@ -1,7 +1,7 @@
 ; The Luck Factor
 ; Repo: https://github.com/tabaddor/The-Luck-Factor
 
-turtles-own [capital talent luck-events]
+turtles-own [category starting_capital capital talent luck-events]
 breed [good-lucks good-luck] ;; good luck events
 breed [bad-lucks bad-luck] ;; bad luck events
 
@@ -30,8 +30,18 @@ to setup
       if ycor >= 0 [
        set capital 40 + random-float 15
       ]
+      set starting_capital capital
 
-    ] [
+      ;;set category -> if ycor >= -6 middle, else lower
+
+      ifelse ycor >= -6[
+        set category "middle"
+      ]
+      [
+        set category "lower"
+      ]
+    ]
+    [
       ;; set location of upper class (top 1%)
       setxy random-xcor 6 + random 10
 
@@ -42,6 +52,8 @@ to setup
       if ycor >= 10 [
        set capital 90 + random-float 10
       ]
+      set category "upper"
+      set starting_capital capital
     ]
   ]
 
@@ -70,7 +82,8 @@ to setup
     ]
     pycor >= -6 [
       set pcolor yellow ;; middle class
-    ]  [
+    ]
+    [
       set pcolor violet ;; lower class
     ])
   ]
@@ -139,7 +152,7 @@ to luck-event
         ;; move agent down accordingly
         face patch 0 -16
 
-        let move_decrease decrease * random-float 1
+        let move_decrease decrease * random-float 1 ;; what is the point of multiplying by a random number for movement?
         ifelse ycor + move_decrease < -15 [
          setxy xcor -15
         ][
@@ -150,7 +163,7 @@ to luck-event
      ;; lucky event
       if luck-events > 0 [
         let increase 0
-        if random-float 1 < talent [
+        if random-float 1 < talent [ ;; shouldnt increase just automatically be multiplied by talent?
           set increase (luck-factor * luck-events)
         ]
         set capital capital + increase
@@ -291,7 +304,7 @@ num-good-luck
 num-good-luck
 0
 100
-9.0
+100.0
 1
 1
 NIL
@@ -306,7 +319,7 @@ num-bad-luck
 num-bad-luck
 0
 100
-10.0
+100.0
 1
 1
 NIL
