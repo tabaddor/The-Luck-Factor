@@ -1,7 +1,7 @@
 ; The Luck Factor
 ; Repo: https://github.com/tabaddor/The-Luck-Factor
 
-turtles-own [category starting_capital capital talent luck-events]
+turtles-own [category starting_capital capital talent luck-events total-luck]
 breed [good-lucks good-luck] ;; good luck events
 breed [bad-lucks bad-luck] ;; bad luck events
 
@@ -16,6 +16,8 @@ to setup
   ask turtles [
     set color black
     set shape "person"
+    set category "wrong"
+    set starting_capital -100
     ifelse random-float 1 < 0.99 [
       ;; set location of lower and middle class
       setxy random-xcor -16 + random 22
@@ -134,11 +136,13 @@ to count-luck-events
     ;; if on good luck event
     if any? good-lucks-on self [
       set luck-events luck-events + 1
+      set total-luck total-luck + 1
     ]
 
     ;; if on bad luck event
     if any? bad-lucks-on self [
      set luck-events luck-events - 1
+     set total-luck total-luck - 1
     ]
   ]
 end
@@ -151,7 +155,7 @@ to luck-event
      ;; unlucky event
       if luck-events < 0 [
         let decrease ((luck-factor * luck-events)) / 10
-        set capital capital - decrease
+        set capital capital + decrease
         ;; move agent down accordingly
         face patch 0 -16
 
@@ -274,7 +278,7 @@ luck-factor
 luck-factor
 0
 1
-0.5
+0.4
 0.1
 1
 NIL
@@ -673,6 +677,30 @@ NetLogo 6.1.1
 @#$#@#$#@
 @#$#@#$#@
 @#$#@#$#@
+<experiments>
+  <experiment name="experiment" repetitions="1" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>count turtles</metric>
+    <metric>[category] of turtles</metric>
+    <metric>[starting_capital] of turtles</metric>
+    <metric>[capital] of turtles</metric>
+    <metric>[talent] of turtles</metric>
+    <metric>[luck-events] of turtles</metric>
+    <enumeratedValueSet variable="num-turtles">
+      <value value="500"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="num-bad-luck">
+      <value value="100"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="luck-factor">
+      <value value="0.4"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="num-good-luck">
+      <value value="100"/>
+    </enumeratedValueSet>
+  </experiment>
+</experiments>
 @#$#@#$#@
 @#$#@#$#@
 default
