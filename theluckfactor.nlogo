@@ -24,6 +24,9 @@ to setup
       if ycor >= -16 [
        set capital 5 + random-float 10
       ]
+      if ycor >= -10 [
+        set capital 5 + random-float 10
+      ]
       if ycor >= -5 [
        set capital 20 + random-float 15
       ]
@@ -50,7 +53,7 @@ to setup
        set capital 70 + random-float 15
       ]
       if ycor >= 10 [
-       set capital 90 + random-float 10
+       set capital 90 + random-float 15
       ]
       set category "upper"
       set starting_capital capital
@@ -152,7 +155,7 @@ to luck-event
         ;; move agent down accordingly
         face patch 0 -16
 
-        let move_decrease decrease * random-float 1 ;; what is the point of multiplying by a random number for movement?
+        let move_decrease decrease
         ifelse ycor + move_decrease < -15 [
          setxy xcor -15
         ][
@@ -163,14 +166,13 @@ to luck-event
      ;; lucky event
       if luck-events > 0 [
         let increase 0
-        if random-float 1 < talent [ ;; shouldnt increase just automatically be multiplied by talent?
-          set increase (luck-factor * luck-events)
-        ]
+
+        set increase (luck-factor * luck-events * (0.5 + talent))
         set capital capital + increase
         ;; move agent up accordingly
         face patch 0 16
 
-        let move_increase increase * random-float 1
+        let move_increase increase
         ifelse ycor + move_increase > 15 [
          setxy xcor 15
         ][
