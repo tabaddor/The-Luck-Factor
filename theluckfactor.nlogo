@@ -150,7 +150,7 @@ to luck-event
    ask turtles [
      ;; unlucky event
       if luck-events < 0 [
-        let decrease (luck-factor * luck-events)
+        let decrease ((luck-factor * luck-events)) / 4
         set capital capital - decrease
         ;; move agent down accordingly
         face patch 0 -16
@@ -167,7 +167,7 @@ to luck-event
       if luck-events > 0 [
         let increase 0
 
-        set increase (luck-factor * luck-events * (0.5 + talent))
+        set increase ((luck-factor * luck-events * (0.5 + talent))) / 4
         set capital capital + increase
         ;; move agent up accordingly
         face patch 0 16
